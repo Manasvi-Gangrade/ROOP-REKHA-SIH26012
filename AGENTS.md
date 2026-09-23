@@ -1,0 +1,3 @@
+- Keep all ROOP-REKHA data frontend-only and deterministic; the demo must not depend on a backend or private API.
+- Use separate TanStack routes for each dashboard module, wrapped by a shared responsive dashboard shell.
+- Load Leaflet map code only in the browser to keep server rendering safe.
