@@ -51,7 +51,7 @@ interface ExtractedParcel {
 
 const extractedParcels: ExtractedParcel[] = [
   {
-    id: "MP-54-4521",
+    id: "MP-IND-54-4521",
     name: "Jawahar Marg Plot 12",
     confidence: 96,
     area: 286,
@@ -63,7 +63,7 @@ const extractedParcels: ExtractedParcel[] = [
     status: "High Confidence",
   },
   {
-    id: "MP-54-4522",
+    id: "MP-IND-54-4522",
     name: "Sarafa Bazar Lane 3",
     confidence: 84,
     area: 344,
@@ -75,7 +75,7 @@ const extractedParcels: ExtractedParcel[] = [
     status: "Review Advised",
   },
   {
-    id: "MP-54-4523",
+    id: "MP-IND-54-4523",
     name: "Khajuri Bazar Main",
     confidence: 71,
     area: 198,
@@ -87,7 +87,7 @@ const extractedParcels: ExtractedParcel[] = [
     status: "Flagged",
   },
   {
-    id: "MP-54-4524",
+    id: "MP-IND-54-4524",
     name: "Bada Sarafa Ext.",
     confidence: 93,
     area: 427,
@@ -99,7 +99,7 @@ const extractedParcels: ExtractedParcel[] = [
     status: "High Confidence",
   },
   {
-    id: "MP-54-4525",
+    id: "MP-IND-54-4525",
     name: "Chhatribagh Rd 102",
     confidence: 88,
     area: 312,
@@ -111,7 +111,7 @@ const extractedParcels: ExtractedParcel[] = [
     status: "Review Advised",
   },
   {
-    id: "MP-54-4526",
+    id: "MP-IND-54-4526",
     name: "Balaji Compound",
     confidence: 95,
     area: 640,
@@ -123,7 +123,7 @@ const extractedParcels: ExtractedParcel[] = [
     status: "High Confidence",
   },
   {
-    id: "MP-54-4527",
+    id: "MP-IND-54-4527",
     name: "Old Cloth Market",
     confidence: 68,
     area: 175,
@@ -135,7 +135,7 @@ const extractedParcels: ExtractedParcel[] = [
     status: "Flagged",
   },
   {
-    id: "MP-54-4528",
+    id: "MP-IND-54-4528",
     name: "Imli Bazar Plot 305",
     confidence: 91,
     area: 480,
@@ -187,7 +187,10 @@ function CircularGauge({ score, size = 48 }: { score: number; size?: number }) {
   const style = getConfidenceStyle(score);
 
   return (
-    <div className="relative inline-flex items-center justify-center" style={{ width: size, height: size }}>
+    <div
+      className="relative inline-flex items-center justify-center"
+      style={{ width: size, height: size }}
+    >
       <svg width={size} height={size} className="-rotate-90">
         <circle
           cx={size / 2}
@@ -218,9 +221,13 @@ function CircularGauge({ score, size = 48 }: { score: number; size?: number }) {
 
 function Extraction() {
   const [split, setSplit] = useState(52);
-  const [viewMode, setViewMode] = useState<"slider" | "sideBySide" | "maskOnly" | "sourceOnly">("slider");
-  const [selectedParcelId, setSelectedParcelId] = useState<string>("MP-54-4521");
-  const [filterConfidence, setFilterConfidence] = useState<"all" | "high" | "review" | "flagged">("all");
+  const [viewMode, setViewMode] = useState<"slider" | "sideBySide" | "maskOnly" | "sourceOnly">(
+    "slider",
+  );
+  const [selectedParcelId, setSelectedParcelId] = useState<string>("MP-IND-54-4521");
+  const [filterConfidence, setFilterConfidence] = useState<"all" | "high" | "review" | "flagged">(
+    "all",
+  );
   const [maskOpacity, setMaskOpacity] = useState(0.55);
   const [hoveredParcel, setHoveredParcel] = useState<string | null>(null);
 
@@ -228,13 +235,14 @@ function Extraction() {
   const isDraggingRef = useRef(false);
 
   const activeParcel = useMemo(
-    () => extractedParcels.find((p) => p.id === selectedParcelId) || extractedParcels[0],
-    [selectedParcelId]
+    () => extractedParcels.find((p) => p.id === selectedParcelId) || extractedParcels[0]!,
+    [selectedParcelId],
   );
 
   const filteredList = useMemo(() => {
     if (filterConfidence === "high") return extractedParcels.filter((p) => p.confidence >= 90);
-    if (filterConfidence === "review") return extractedParcels.filter((p) => p.confidence >= 75 && p.confidence < 90);
+    if (filterConfidence === "review")
+      return extractedParcels.filter((p) => p.confidence >= 75 && p.confidence < 90);
     if (filterConfidence === "flagged") return extractedParcels.filter((p) => p.confidence < 75);
     return extractedParcels;
   }, [filterConfidence]);
@@ -313,7 +321,7 @@ function Extraction() {
 
       <div className="grid gap-5 lg:grid-cols-[1fr_360px]">
         {/* Main Comparison Canvas */}
-        <div className="space-y-4">
+        <div className="min-w-0 space-y-4">
           <Panel className="relative overflow-hidden p-0 border border-border shadow-lg">
             {/* Split Slider Mode */}
             {viewMode === "slider" && (
@@ -338,10 +346,7 @@ function Extraction() {
                   className="absolute inset-y-0 left-0 overflow-hidden"
                   style={{ width: `${split}%` }}
                 >
-                  <div
-                    className="relative h-full"
-                    style={{ width: `${(100 / split) * 100}%` }}
-                  >
+                  <div className="relative h-full" style={{ width: `${(100 / split) * 100}%` }}>
                     <img
                       src={aerial}
                       width={1536}
@@ -388,7 +393,9 @@ function Extraction() {
                               className="transition-all duration-200"
                             />
                             {/* Centroid Tag */}
-                            <g transform={`translate(${parcel.labelCoord.x}, ${parcel.labelCoord.y})`}>
+                            <g
+                              transform={`translate(${parcel.labelCoord.x}, ${parcel.labelCoord.y})`}
+                            >
                               <rect
                                 x="-36"
                                 y="-12"
@@ -503,7 +510,11 @@ function Extraction() {
                     const isSelected = selectedParcelId === parcel.id;
                     const style = getConfidenceStyle(parcel.confidence);
                     return (
-                      <g key={parcel.id} onClick={() => setSelectedParcelId(parcel.id)} className="cursor-pointer">
+                      <g
+                        key={parcel.id}
+                        onClick={() => setSelectedParcelId(parcel.id)}
+                        className="cursor-pointer"
+                      >
                         <polygon
                           points={parcel.points}
                           fill={style.fill}
@@ -560,7 +571,9 @@ function Extraction() {
                     onChange={(e) => setMaskOpacity(Number(e.target.value) / 100)}
                     className="w-24 accent-primary h-1.5 bg-muted rounded cursor-pointer"
                   />
-                  <span className="font-semibold text-foreground">{Math.round(maskOpacity * 100)}%</span>
+                  <span className="font-semibold text-foreground">
+                    {Math.round(maskOpacity * 100)}%
+                  </span>
                 </div>
               </div>
 
@@ -689,8 +702,8 @@ function Extraction() {
                   {activeParcel.confidence >= 90
                     ? "Model edge uncertainty is within sub-centimetre tolerance. Ready for automated registry drafting."
                     : activeParcel.confidence >= 75
-                    ? "Roof eaves or tree overhang creates marginal edge noise. Field surveyor visual check advised."
-                    : "Severe boundary deviation or right-of-way conflict detected. Requires physical GNSS field check."}
+                      ? "Roof eaves or tree overhang creates marginal edge noise. Field surveyor visual check advised."
+                      : "Severe boundary deviation or right-of-way conflict detected. Requires physical GNSS field check."}
                 </p>
               </div>
 
@@ -724,9 +737,7 @@ function Extraction() {
                   <span className="text-[10px] font-bold uppercase text-muted-foreground block">
                     Inference Time
                   </span>
-                  <span className="font-display text-lg font-bold text-primary">
-                    38 ms
-                  </span>
+                  <span className="font-display text-lg font-bold text-primary">38 ms</span>
                 </div>
               </div>
 
@@ -796,7 +807,9 @@ function Extraction() {
               Automated Parcel Pipeline
             </div>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              ROOP-REKHA's convolutional edge-regularizer simplifies raw raster semantic masks into topologically clean vectors, preserving 90° building angles while removing vegetation occlusion.
+              ROOP-REKHA's convolutional edge-regularizer simplifies raw raster semantic masks into
+              topologically clean vectors, preserving 90° building angles while removing vegetation
+              occlusion.
             </p>
           </Panel>
         </div>

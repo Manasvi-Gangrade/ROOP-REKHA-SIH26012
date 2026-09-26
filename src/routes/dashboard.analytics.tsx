@@ -54,17 +54,25 @@ function Analytics() {
   function exportData(format: "csv" | "json" | "txt") {
     let content = "";
     let mimeType = "text/plain";
-    let fileName = `roop-rekha-cadastre-report.${format}`;
+    const fileName = `roop-rekha-cadastre-report.${format}`;
 
     if (format === "csv") {
       mimeType = "text/csv";
-      content = "City,Approved,Pending,Disputed,Progress_Pct\n" +
-        ulbProgress.map((u) => `${u.name},${u.approved},${u.pending},${u.disputed},${u.progress}`).join("\n");
+      content =
+        "City,Approved,Pending,Disputed,Progress_Pct\n" +
+        ulbProgress
+          .map((u) => `${u.name},${u.approved},${u.pending},${u.disputed},${u.progress}`)
+          .join("\n");
     } else if (format === "json") {
       mimeType = "application/json";
-      content = JSON.stringify({ programme: "ROOP-REKHA", totalParcels: 9402, cities: ulbProgress }, null, 2);
+      content = JSON.stringify(
+        { programme: "ROOP-REKHA", totalParcels: 9402, cities: ulbProgress },
+        null,
+        2,
+      );
     } else {
-      content = "ROOP-REKHA Programme Executive Snapshot\n" +
+      content =
+        "ROOP-REKHA Programme Executive Snapshot\n" +
         "Parcels Processed: 9,402\n" +
         "Mean Average Precision: 87.6%\n" +
         "Participating ULBs: 157\n" +
@@ -129,13 +137,17 @@ function Analytics() {
           <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div>
               <h2 className="font-display text-lg font-bold">Daily Digitisation Velocity</h2>
-              <p className="text-xs text-muted-foreground">Parcels processed per day vs approved deeds</p>
+              <p className="text-xs text-muted-foreground">
+                Parcels processed per day vs approved deeds
+              </p>
             </div>
             <div className="flex rounded-lg border border-border p-1 bg-muted/40 text-xs">
               <button
                 onClick={() => setTimeRange("7d")}
                 className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                  timeRange === "7d" ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                  timeRange === "7d"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 7 Days
@@ -143,7 +155,9 @@ function Analytics() {
               <button
                 onClick={() => setTimeRange("30d")}
                 className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                  timeRange === "30d" ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                  timeRange === "30d"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 30 Days
@@ -154,8 +168,17 @@ function Analytics() {
           <div className="mt-4 h-72">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={displayData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" opacity={0.6} />
-                <XAxis dataKey="day" interval={timeRange === "7d" ? 0 : 4} tick={{ fontSize: 11, fill: "currentColor" }} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="var(--border)"
+                  opacity={0.6}
+                />
+                <XAxis
+                  dataKey="day"
+                  interval={timeRange === "7d" ? 0 : 4}
+                  tick={{ fontSize: 11, fill: "currentColor" }}
+                />
                 <YAxis tick={{ fontSize: 11, fill: "currentColor" }} />
                 <Tooltip content={<CustomChartTooltip valueSuffix=" parcels" />} />
                 <Legend wrapperStyle={{ fontSize: 11, paddingTop: 8 }} />
@@ -192,7 +215,9 @@ function Analytics() {
               <h2 className="font-display text-lg font-bold">mAP Accuracy Gauge</h2>
               <Award className="size-5 text-amber-500" />
             </div>
-            <p className="text-xs text-muted-foreground">Mean Average Precision against physical ground truth</p>
+            <p className="text-xs text-muted-foreground">
+              Mean Average Precision against physical ground truth
+            </p>
 
             <div className="relative h-60 mt-2">
               <ResponsiveContainer width="100%" height="100%">
@@ -204,7 +229,11 @@ function Analytics() {
                   endAngle={-30}
                 >
                   <PolarAngleAxis type="number" domain={[0, 100]} tick={false} />
-                  <RadialBar dataKey="value" cornerRadius={12} background={{ fill: "var(--muted)" }} />
+                  <RadialBar
+                    dataKey="value"
+                    cornerRadius={12}
+                    background={{ fill: "var(--muted)" }}
+                  />
                 </RadialBarChart>
               </ResponsiveContainer>
               <div className="absolute inset-0 grid place-items-center pt-6 text-center pointer-events-none">
@@ -234,8 +263,12 @@ function Analytics() {
       <Panel className="mt-5 border border-border/80 shadow-md p-5">
         <div className="flex items-center justify-between mb-2">
           <div>
-            <h2 className="font-display text-lg font-bold">Municipal Breakdown: Approved vs Pending vs Disputed</h2>
-            <p className="text-xs text-muted-foreground">Detailed status distribution across participating Smart Cities</p>
+            <h2 className="font-display text-lg font-bold">
+              Municipal Breakdown: Approved vs Pending vs Disputed
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              Detailed status distribution across participating Smart Cities
+            </p>
           </div>
           <span className="rounded-full bg-primary/10 text-primary px-3 py-1 text-xs font-bold">
             8 Pilot ULBs
@@ -245,13 +278,30 @@ function Analytics() {
         <div className="mt-4 h-80">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={ulbProgress} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" opacity={0.6} />
+              <CartesianGrid
+                strokeDasharray="3 3"
+                vertical={false}
+                stroke="var(--border)"
+                opacity={0.6}
+              />
               <XAxis dataKey="name" tick={{ fontSize: 11, fill: "currentColor" }} />
               <YAxis tick={{ fontSize: 11, fill: "currentColor" }} unit=" parcels" />
               <Tooltip content={<CustomChartTooltip valueSuffix=" parcels" />} />
               <Legend wrapperStyle={{ fontSize: 11, paddingTop: 10 }} />
-              <Bar dataKey="approved" name="Approved Deeds" stackId="a" fill="#14b8a6" isAnimationActive={true} />
-              <Bar dataKey="pending" name="Pending Review" stackId="a" fill="#f59e0b" isAnimationActive={true} />
+              <Bar
+                dataKey="approved"
+                name="Approved Deeds"
+                stackId="a"
+                fill="#14b8a6"
+                isAnimationActive={true}
+              />
+              <Bar
+                dataKey="pending"
+                name="Pending Review"
+                stackId="a"
+                fill="#f59e0b"
+                isAnimationActive={true}
+              />
               <Bar
                 dataKey="disputed"
                 name="Disputed / Encroached"

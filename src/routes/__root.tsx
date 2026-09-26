@@ -76,10 +76,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "ROOP-REKHA — Urban Parcel Intelligence" },
-      { name: "description", content: "AI-powered urban parcel mapping and cadastral feature extraction." },
+      {
+        name: "description",
+        content: "AI-powered urban parcel mapping and cadastral feature extraction.",
+      },
       { name: "author", content: "ROOP-REKHA" },
       { property: "og:title", content: "ROOP-REKHA" },
-      { property: "og:description", content: "AI-powered urban parcel mapping and cadastral intelligence." },
+      {
+        property: "og:description",
+        content: "AI-powered urban parcel mapping and cadastral intelligence.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -90,7 +96,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -118,7 +127,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider><Outlet /><Toaster /></ThemeProvider>
+      <ThemeProvider>
+        <Outlet />
+        <Toaster />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

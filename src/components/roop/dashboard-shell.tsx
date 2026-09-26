@@ -75,7 +75,8 @@ export const roleThemes: Record<Role, RoleTheme> = {
     scope: "National Command",
     location: "MoHUA / DoLR National Mission",
     tagline: "Full Clearance · 157 ULBs · Model Tuning & Oversight",
-    bannerClass: "bg-gradient-to-r from-violet-700 via-indigo-700 to-purple-800 text-white shadow-md",
+    bannerClass:
+      "bg-gradient-to-r from-violet-700 via-indigo-700 to-purple-800 text-white shadow-md",
     badgeClass: "bg-violet-500/20 text-violet-300 border-violet-400/40",
     sidebarBorder: "border-l-4 border-l-violet-600",
     accentColor: "text-violet-500",
@@ -123,7 +124,8 @@ export const roleThemes: Record<Role, RoleTheme> = {
     scope: "Public Portal",
     location: "Citizen Cadastre Access",
     tagline: "Public Deeds · Verified Parcel Transparency · Citizen Grievance Submission",
-    bannerClass: "bg-gradient-to-r from-rose-700 via-fuchsia-700 to-indigo-800 text-white shadow-md",
+    bannerClass:
+      "bg-gradient-to-r from-rose-700 via-fuchsia-700 to-indigo-800 text-white shadow-md",
     badgeClass: "bg-rose-500/20 text-rose-300 border-rose-400/40",
     sidebarBorder: "border-l-4 border-l-rose-500",
     accentColor: "text-rose-500",
@@ -178,7 +180,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
           className={cn(
             "fixed inset-y-0 left-0 z-40 hidden border-r border-sidebar-border bg-sidebar transition-all duration-300 lg:flex lg:flex-col shadow-sm",
             collapsed ? "w-[76px]" : "w-64",
-            theme.sidebarBorder
+            theme.sidebarBorder,
           )}
         >
           {/* Logo & Platform Name */}
@@ -204,16 +206,19 @@ export function DashboardShell({ children }: { children: ReactNode }) {
           {!collapsed && (
             <div className="px-3 pt-3 pb-1">
               <div className="flex items-center gap-2.5 rounded-xl border border-border/60 bg-muted/40 p-2.5">
-                <span className={cn("grid size-8 place-items-center rounded-lg bg-background shadow-xs", theme.accentColor)}>
+                <span
+                  className={cn(
+                    "grid size-8 place-items-center rounded-lg bg-background shadow-xs",
+                    theme.accentColor,
+                  )}
+                >
                   <RoleIcon className="size-4" />
                 </span>
                 <div className="min-w-0 flex-1">
                   <span className="block text-[10px] font-bold uppercase tracking-wider text-muted-foreground truncate">
                     {theme.scope}
                   </span>
-                  <span className="block text-xs font-bold text-foreground truncate">
-                    {role}
-                  </span>
+                  <span className="block text-xs font-bold text-foreground truncate">{role}</span>
                 </div>
               </div>
             </div>
@@ -232,7 +237,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                     "flex h-11 items-center gap-3 rounded-xl px-3 text-sm font-semibold transition-all duration-200",
                     active
                       ? "bg-primary text-primary-foreground shadow-brand"
-                      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-foreground"
+                      : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-foreground",
                   )}
                 >
                   <item.icon className="size-5 shrink-0" />
@@ -292,7 +297,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                   aria-expanded={roleOpen}
                   className={cn(
                     "flex items-center gap-2 font-semibold transition-all border-border shadow-xs",
-                    `hover:${theme.ringColor}`
+                    `hover:${theme.ringColor}`,
                   )}
                 >
                   <RoleIcon className={cn("size-4", theme.accentColor)} />
@@ -321,14 +326,21 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                               "flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-xs font-medium transition-colors",
                               isCurrent
                                 ? "bg-primary text-primary-foreground font-bold shadow-xs"
-                                : "hover:bg-muted text-foreground"
+                                : "hover:bg-muted text-foreground",
                             )}
                           >
                             <div className="flex items-center gap-2.5">
                               <RIcon className="size-4 shrink-0" />
                               <div>
                                 <span className="block font-bold">{name}</span>
-                                <span className={cn("text-[10px] block", isCurrent ? "text-primary-foreground/80" : "text-muted-foreground")}>
+                                <span
+                                  className={cn(
+                                    "text-[10px] block",
+                                    isCurrent
+                                      ? "text-primary-foreground/80"
+                                      : "text-muted-foreground",
+                                  )}
+                                >
                                   {rTheme.scope}
                                 </span>
                               </div>
@@ -371,7 +383,12 @@ export function DashboardShell({ children }: { children: ReactNode }) {
           </header>
 
           {/* Dynamic Role-Sensitive Operational Banner */}
-          <div className={cn("px-4 py-2.5 text-xs font-semibold md:px-7 transition-all duration-300", theme.bannerClass)}>
+          <div
+            className={cn(
+              "px-4 py-2.5 text-xs font-semibold md:px-7 transition-all duration-300",
+              theme.bannerClass,
+            )}
+          >
             <div className="flex flex-wrap items-center justify-between gap-2 max-w-[1600px] mx-auto">
               <div className="flex items-center gap-2">
                 <RoleIcon className="size-4 shrink-0" />
@@ -379,9 +396,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                   <strong>{role}:</strong> {theme.tagline}
                 </span>
               </div>
-              <span className="text-[11px] opacity-90 hidden md:inline">
-                {theme.location}
-              </span>
+              <span className="text-[11px] opacity-90 hidden md:inline">{theme.location}</span>
             </div>
           </div>
 
@@ -436,7 +451,9 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                         onClick={() => setRole(r)}
                         className={cn(
                           "rounded-lg p-2 text-left text-xs font-semibold transition-colors",
-                          r === role ? "bg-primary text-primary-foreground font-bold" : "hover:bg-muted text-foreground"
+                          r === role
+                            ? "bg-primary text-primary-foreground font-bold"
+                            : "hover:bg-muted text-foreground",
                         )}
                       >
                         {r}
@@ -455,7 +472,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                         "flex items-center gap-3 rounded-xl px-3 py-2.5 text-xs font-semibold transition-colors",
                         pathname === item.to
                           ? "bg-primary text-primary-foreground shadow-sm"
-                          : "text-sidebar-foreground hover:bg-muted"
+                          : "text-sidebar-foreground hover:bg-muted",
                       )}
                     >
                       <item.icon className="size-4 shrink-0" />
@@ -485,7 +502,7 @@ export function DashboardShell({ children }: { children: ReactNode }) {
                 "flex flex-col items-center gap-1 text-[9px] font-bold py-1 rounded-lg transition-colors",
                 pathname === item.to
                   ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               <item.icon className="size-4" />

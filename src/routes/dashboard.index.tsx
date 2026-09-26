@@ -116,7 +116,9 @@ function Overview() {
             className="animate-rise transition-all duration-300 hover:-translate-y-1 hover:shadow-lg border border-border/80"
           >
             <div className="flex items-start justify-between">
-              <span className={`grid size-12 place-items-center rounded-2xl ${kpi.bg} ${kpi.color}`}>
+              <span
+                className={`grid size-12 place-items-center rounded-2xl ${kpi.bg} ${kpi.color}`}
+              >
                 <kpi.icon className="size-6" />
               </span>
               <span
@@ -144,7 +146,9 @@ function Overview() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-display text-lg font-bold">Cadastral Review Status</h2>
-              <p className="text-xs text-muted-foreground">Distribution of 9,402 processed parcels</p>
+              <p className="text-xs text-muted-foreground">
+                Distribution of 9,402 processed parcels
+              </p>
             </div>
             <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-bold text-primary">
               Live National Feed
@@ -194,7 +198,9 @@ function Overview() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-display text-lg font-bold">ULB Digitisation Progress</h2>
-              <p className="text-xs text-muted-foreground">Completion percentage across pilot municipal bodies</p>
+              <p className="text-xs text-muted-foreground">
+                Completion percentage across pilot municipal bodies
+              </p>
             </div>
             <Button asChild variant="ghost" size="sm" className="text-xs text-primary">
               <Link to="/dashboard/analytics">
@@ -206,7 +212,12 @@ function Overview() {
           <div className="mt-4 h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={ulbProgress} layout="vertical" margin={{ left: 20, right: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--border)" opacity={0.6} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  horizontal={false}
+                  stroke="var(--border)"
+                  opacity={0.6}
+                />
                 <XAxis
                   type="number"
                   domain={[0, 100]}
@@ -263,7 +274,9 @@ function Overview() {
             </span>
             <div>
               <p className="font-display text-sm font-bold text-foreground">Web-GIS Map Viewer</p>
-              <p className="text-[11px] text-muted-foreground">Inspect parcels on satellite layer</p>
+              <p className="text-[11px] text-muted-foreground">
+                Inspect parcels on satellite layer
+              </p>
             </div>
           </div>
           <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
@@ -278,7 +291,9 @@ function Overview() {
               <ShieldCheck className="size-5" />
             </span>
             <div>
-              <p className="font-display text-sm font-bold text-foreground">Topology & Validation</p>
+              <p className="font-display text-sm font-bold text-foreground">
+                Topology & Validation
+              </p>
               <p className="text-[11px] text-muted-foreground">Clean slivers and overlaps</p>
             </div>
           </div>
@@ -308,8 +323,8 @@ function Overview() {
                     item.tone === "approved"
                       ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
                       : item.tone === "disputed"
-                      ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
-                      : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+                        ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
+                        : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
                   }`}
                 >
                   {item.tone.toUpperCase()}
@@ -318,7 +333,9 @@ function Overview() {
               </div>
               <p className="text-xs font-bold text-foreground line-clamp-1">{item.title}</p>
               <p className="mt-1 text-[11px] text-muted-foreground line-clamp-1">{item.place}</p>
-              <p className="mt-2 text-[10px] font-medium text-primary">By {item.user || "Autonomous Agent"}</p>
+              <p className="mt-2 text-[10px] font-medium text-primary">
+                By {item.user || "Autonomous Agent"}
+              </p>
             </div>
           ))}
         </div>

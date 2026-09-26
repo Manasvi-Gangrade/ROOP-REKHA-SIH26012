@@ -158,7 +158,8 @@ function Landing() {
 
           <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
             An AI-powered urban cadastral platform that converts drone and LiDAR aerial surveys into
-            topologically regularized, legally reviewable property parcels for Indian Urban Local Bodies.
+            topologically regularized, legally reviewable property parcels for Indian Urban Local
+            Bodies.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
@@ -214,7 +215,9 @@ function Landing() {
               <p className="font-display text-3xl font-bold text-amber-600 dark:text-amber-400 md:text-4xl">
                 70–80%
               </p>
-              <p className="mt-1 text-xs font-semibold text-muted-foreground">Faster Digitisation</p>
+              <p className="mt-1 text-xs font-semibold text-muted-foreground">
+                Faster Digitisation
+              </p>
             </div>
             <div className="text-center p-2">
               <p className="font-display text-3xl font-bold text-violet-600 dark:text-violet-400 md:text-4xl">
@@ -243,11 +246,36 @@ function Landing() {
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {[
-            { icon: UploadCloud, step: "01", title: "Ingestion", copy: "Cloud-Optimized GeoTIFFs & LiDAR point clouds" },
-            { icon: Bot, step: "02", title: "AI Extraction", copy: "Segment Anything neural boundary detection" },
-            { icon: ShieldCheck, step: "03", title: "Validation", copy: "Douglas-Peucker orthogonalization & OGC checks" },
-            { icon: Map, step: "04", title: "GIS Review", copy: "Multi-stakeholder visual deed approval" },
-            { icon: CheckCircle2, step: "05", title: "CORS Verify", copy: "Centimetre DGPS field sign-off & publishing" },
+            {
+              icon: UploadCloud,
+              step: "01",
+              title: "Ingestion",
+              copy: "Cloud-Optimized GeoTIFFs & LiDAR point clouds",
+            },
+            {
+              icon: Bot,
+              step: "02",
+              title: "AI Extraction",
+              copy: "Segment Anything neural boundary detection",
+            },
+            {
+              icon: ShieldCheck,
+              step: "03",
+              title: "Validation",
+              copy: "Douglas-Peucker orthogonalization & OGC checks",
+            },
+            {
+              icon: Map,
+              step: "04",
+              title: "GIS Review",
+              copy: "Multi-stakeholder visual deed approval",
+            },
+            {
+              icon: CheckCircle2,
+              step: "05",
+              title: "CORS Verify",
+              copy: "Centimetre DGPS field sign-off & publishing",
+            },
           ].map((item) => (
             <div
               key={item.step}
@@ -281,7 +309,9 @@ function Landing() {
               </h2>
             </div>
             <Button asChild className="bg-brand-gradient shadow-brand">
-              <Link to="/dashboard">Explore All 10 Modules <ArrowRight className="size-4 ml-1" /></Link>
+              <Link to="/dashboard">
+                Explore All 10 Modules <ArrowRight className="size-4 ml-1" />
+              </Link>
             </Button>
           </div>
 

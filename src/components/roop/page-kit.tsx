@@ -1,7 +1,17 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-export function PageHeader({ eyebrow, title, description, action }: { eyebrow: string; title: string; description: string; action?: ReactNode }) {
+export function PageHeader({
+  eyebrow,
+  title,
+  description,
+  action,
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  action?: ReactNode;
+}) {
   return (
     <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-end">
       <div>
@@ -14,15 +24,24 @@ export function PageHeader({ eyebrow, title, description, action }: { eyebrow: s
   );
 }
 
-export function Panel({ children, className }: { children: ReactNode; className?: string }) {
-  return <section className={cn("glass-panel rounded-2xl p-5", className)}>{children}</section>;
+export function Panel({ children, className, ...props }: ComponentPropsWithoutRef<"section">) {
+  return (
+    <section className={cn("glass-panel rounded-2xl p-5", className)} {...props}>
+      {children}
+    </section>
+  );
 }
 
 export function StatusBadge({ status }: { status: string }) {
-  const tone = status.toLowerCase().includes("approv") || status === "Processed" || status === "Resolved"
-    ? "bg-approved-soft text-approved"
-    : status.toLowerCase().includes("disput") || status.toLowerCase().includes("flag")
-      ? "bg-disputed-soft text-disputed"
-      : "bg-pending-soft text-pending";
-  return <span className={cn("inline-flex rounded-full px-2.5 py-1 text-xs font-bold", tone)}>{status}</span>;
+  const tone =
+    status.toLowerCase().includes("approv") || status === "Processed" || status === "Resolved"
+      ? "bg-approved-soft text-approved"
+      : status.toLowerCase().includes("disput") || status.toLowerCase().includes("flag")
+        ? "bg-disputed-soft text-disputed"
+        : "bg-pending-soft text-pending";
+  return (
+    <span className={cn("inline-flex rounded-full px-2.5 py-1 text-xs font-bold", tone)}>
+      {status}
+    </span>
+  );
 }

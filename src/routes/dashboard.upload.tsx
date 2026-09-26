@@ -132,7 +132,8 @@ function UploadPage() {
               Drop drone survey packages here
             </h2>
             <p className="mt-2 text-xs text-muted-foreground max-w-sm">
-              GeoTIFF (.tif), ASPRS LiDAR (.laz / .las), or multi-view drone survey archives (.zip). Supports files up to 12 GB.
+              GeoTIFF (.tif), ASPRS LiDAR (.laz / .las), or multi-view drone survey archives (.zip).
+              Supports files up to 12 GB.
             </p>
             <span className="mt-4 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
               Auto-detects EPSG:32643 / WGS84

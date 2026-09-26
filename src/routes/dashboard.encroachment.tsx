@@ -46,7 +46,7 @@ const initialColumns: Record<string, EncroachmentCard[]> = {
   "New Flags": [
     {
       id: "ENC-101",
-      parcel: "MP-54-4523",
+      parcel: "MP-IND-54-4523",
       ward: "Ward 54 (Central)",
       overlap: 18.4,
       conflictType: "Municipal Road Right-of-Way",
@@ -123,20 +123,23 @@ const initialColumns: Record<string, EncroachmentCard[]> = {
   ],
 };
 
+type ColumnName = "New Flags" | "Under Review" | "Resolved";
+
 function Encroach() {
-  const [columns, setColumns] = useState(initialColumns);
+  const [columns, setColumns] = useState<Record<ColumnName, EncroachmentCard[]>>(initialColumns);
   const [search, setSearch] = useState("");
   const [selectedCard, setSelectedCard] = useState<EncroachmentCard | null>(null);
 
-  const columnNames = ["New Flags", "Under Review", "Resolved"];
+  const columnNames: ColumnName[] = ["New Flags", "Under Review", "Resolved"];
 
-  function moveCard(fromCol: string, cardIndex: number, direction: "next" | "prev") {
+  function moveCard(fromCol: ColumnName, cardIndex: number, direction: "next" | "prev") {
     const currentIndex = columnNames.indexOf(fromCol);
     const targetIndex = direction === "next" ? currentIndex + 1 : currentIndex - 1;
 
     if (targetIndex < 0 || targetIndex >= columnNames.length) return;
 
     const toCol = columnNames[targetIndex];
+    if (!toCol) return;
     const sourceList = [...columns[fromCol]];
     const [cardToMove] = sourceList.splice(cardIndex, 1);
 
@@ -145,7 +148,7 @@ function Encroach() {
     setColumns({
       ...columns,
       [fromCol]: sourceList,
-      [toCol]: [cardToMove, ...(columns[toCol] || [])],
+      [toCol]: [cardToMove, ...columns[toCol]],
     });
 
     toast.success(`Moved ${cardToMove.parcel}`, {
@@ -154,14 +157,15 @@ function Encroach() {
   }
 
   function flagNewConflict() {
+    const sequence = columns["New Flags"].length + 1;
     const newCase: EncroachmentCard = {
-      id: `ENC-${Math.floor(100 + Math.random() * 900)}`,
-      parcel: `MP-54-${4530 + Math.floor(Math.random() * 20)}`,
+      id: `ENC-${108 + sequence}`,
+      parcel: "MP-IND-54-4530",
       ward: "Ward 54 (Central)",
-      overlap: +(10 + Math.random() * 12).toFixed(1),
+      overlap: 11.6,
       conflictType: "Street Setback Overhang",
       owner: "Simulated Commercial Unit",
-      areaSqM: +(15 + Math.random() * 25).toFixed(1),
+      areaSqM: 24.8,
     };
 
     setColumns((prev) => ({
@@ -210,31 +214,39 @@ function Encroach() {
 
         <Panel className="border border-border/80 p-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase">Under Investigation</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase">
+              Under Investigation
+            </span>
             <Clock className="size-5 text-amber-500" />
           </div>
           <p className="mt-2 font-display text-2xl font-bold text-amber-600 dark:text-amber-400">
             {columns["Under Review"].length} In Hearing
           </p>
-          <p className="mt-1 text-[11px] text-muted-foreground">Notice served to land title holder</p>
+          <p className="mt-1 text-[11px] text-muted-foreground">
+            Notice served to land title holder
+          </p>
         </Panel>
 
         <Panel className="border border-border/80 p-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-muted-foreground uppercase">Resolved Cadastre</span>
+            <span className="text-xs font-bold text-muted-foreground uppercase">
+              Resolved Cadastre
+            </span>
             <CheckCircle2 className="size-5 text-emerald-500" />
           </div>
           <p className="mt-2 font-display text-2xl font-bold text-emerald-600 dark:text-emerald-400">
             {columns["Resolved"].length} Settled
           </p>
-          <p className="mt-1 text-[11px] text-muted-foreground">Corrected deed updated in GIS registry</p>
+          <p className="mt-1 text-[11px] text-muted-foreground">
+            Corrected deed updated in GIS registry
+          </p>
         </Panel>
       </div>
 
       {/* Kanban Board */}
       <div className="grid gap-5 xl:grid-cols-3">
         {columnNames.map((colName) => {
-          const cards = columns[colName] || [];
+          const cards = columns[colName];
           const isResolved = colName === "Resolved";
           const isNew = colName === "New Flags";
 
@@ -248,16 +260,10 @@ function Encroach() {
                   <div className="flex items-center gap-2">
                     <span
                       className={`size-2.5 rounded-full ${
-                        isResolved
-                          ? "bg-emerald-500"
-                          : isNew
-                          ? "bg-rose-500"
-                          : "bg-amber-500"
+                        isResolved ? "bg-emerald-500" : isNew ? "bg-rose-500" : "bg-amber-500"
                       }`}
                     />
-                    <h2 className="font-display text-base font-bold text-foreground">
-                      {colName}
-                    </h2>
+                    <h2 className="font-display text-base font-bold text-foreground">{colName}</h2>
                   </div>
                   <span className="rounded-full bg-background px-2.5 py-0.5 text-xs font-bold shadow-xs">
                     {cards.length}
@@ -273,7 +279,9 @@ function Encroach() {
                     >
                       <div className="flex items-start justify-between">
                         <div>
-                          <p className="font-display font-bold text-foreground text-sm">{card.parcel}</p>
+                          <p className="font-display font-bold text-foreground text-sm">
+                            {card.parcel}
+                          </p>
                           <p className="text-[11px] text-muted-foreground">{card.ward}</p>
                         </div>
                         <span
@@ -295,10 +303,15 @@ function Encroach() {
                       </div>
 
                       <div className="mt-3 flex items-center justify-between pt-2 border-t border-border text-xs">
-                        <span className="text-[11px] text-muted-foreground">{card.areaSqM} m² affected</span>
+                        <span className="text-[11px] text-muted-foreground">
+                          {card.areaSqM} m² affected
+                        </span>
 
                         {/* Workflow Action Buttons */}
-                        <div className="flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                        <div
+                          className="flex items-center gap-1"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           {colName !== "New Flags" && (
                             <Button
                               size="sm"
@@ -362,8 +375,12 @@ function Encroach() {
 
             <div className="mt-4 space-y-3 text-xs">
               <div className="rounded-xl bg-muted/60 p-3">
-                <span className="text-muted-foreground block text-[11px]">Infringement Classification</span>
-                <span className="font-bold text-foreground text-sm">{selectedCard.conflictType}</span>
+                <span className="text-muted-foreground block text-[11px]">
+                  Infringement Classification
+                </span>
+                <span className="font-bold text-foreground text-sm">
+                  {selectedCard.conflictType}
+                </span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="rounded-xl bg-muted/60 p-2.5">
@@ -376,7 +393,9 @@ function Encroach() {
                 </div>
               </div>
               <div className="rounded-xl bg-muted/60 p-3">
-                <span className="text-muted-foreground block text-[10px]">Record of Rights Owner</span>
+                <span className="text-muted-foreground block text-[10px]">
+                  Record of Rights Owner
+                </span>
                 <span className="font-bold text-foreground">{selectedCard.owner}</span>
               </div>
             </div>
@@ -391,10 +410,7 @@ function Encroach() {
               >
                 Dispatch Legal Notice
               </Button>
-              <Button
-                variant="outline"
-                onClick={() => setSelectedCard(null)}
-              >
+              <Button variant="outline" onClick={() => setSelectedCard(null)}>
                 Close
               </Button>
             </div>

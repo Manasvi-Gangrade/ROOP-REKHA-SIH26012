@@ -41,7 +41,7 @@ interface GeometryIssue {
 const initialIssues: GeometryIssue[] = [
   {
     id: "ISS-01",
-    parcel: "MP-54-4523",
+    parcel: "MP-IND-54-4523",
     issue: "Right-of-Way Boundary Overlap",
     deviation: "12.4 m²",
     severity: "High",
@@ -83,9 +83,7 @@ function Validation() {
 
   function resolveIssue(id: string, actionType: string) {
     setIssues((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, status: "Resolved" as const } : item
-      )
+      prev.map((item) => (item.id === id ? { ...item, status: "Resolved" as const } : item)),
     );
     toast.success(`Issue ${id} Resolved`, {
       description: `Applied ${actionType}. Geometry topology updated to strict OGC standards.`,
@@ -137,13 +135,17 @@ function Validation() {
           <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
             <div>
               <h2 className="font-display text-lg font-bold">Polygon Regularization Engine</h2>
-              <p className="text-xs text-muted-foreground">Douglas-Peucker simplification with minimum boundary area constraints</p>
+              <p className="text-xs text-muted-foreground">
+                Douglas-Peucker simplification with minimum boundary area constraints
+              </p>
             </div>
             <div className="flex rounded-lg border border-border p-1 bg-muted/40 text-xs">
               <button
                 onClick={() => setViewMode("both")}
                 className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                  viewMode === "both" ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                  viewMode === "both"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 Comparison
@@ -151,7 +153,9 @@ function Validation() {
               <button
                 onClick={() => setViewMode("raw")}
                 className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                  viewMode === "raw" ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                  viewMode === "raw"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 Raw Mask
@@ -159,7 +163,9 @@ function Validation() {
               <button
                 onClick={() => setViewMode("clean")}
                 className={`px-2.5 py-1 rounded font-semibold transition-colors ${
-                  viewMode === "clean" ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                  viewMode === "clean"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground"
                 }`}
               >
                 Clean Cadastre
@@ -214,13 +220,35 @@ function Validation() {
                       strokeWidth="3.5"
                     />
                     <circle cx="44" cy="42" r="5" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
-                    <circle cx="244" cy="52" r="5" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
-                    <circle cx="250" cy="186" r="5" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
-                    <circle cx="54" cy="192" r="5" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
+                    <circle
+                      cx="244"
+                      cy="52"
+                      r="5"
+                      fill="#10b981"
+                      stroke="#ffffff"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="250"
+                      cy="186"
+                      r="5"
+                      fill="#10b981"
+                      stroke="#ffffff"
+                      strokeWidth="2"
+                    />
+                    <circle
+                      cx="54"
+                      cy="192"
+                      r="5"
+                      fill="#10b981"
+                      stroke="#ffffff"
+                      strokeWidth="2"
+                    />
                   </svg>
                 </div>
                 <p className="mt-2 text-[11px] text-muted-foreground">
-                  Orthogonalized corners, closed ring geometry, zero self-intersections. Ready for land registry.
+                  Orthogonalized corners, closed ring geometry, zero self-intersections. Ready for
+                  land registry.
                 </p>
               </figure>
             )}
@@ -250,7 +278,9 @@ function Validation() {
             </span>
             <div>
               <h2 className="font-display text-lg font-bold">OGC Rule Checklist</h2>
-              <p className="text-xs text-muted-foreground">ISO 19107 Geographic Information Rules</p>
+              <p className="text-xs text-muted-foreground">
+                ISO 19107 Geographic Information Rules
+              </p>
             </div>
           </div>
 
@@ -324,7 +354,8 @@ function Validation() {
           <div>
             <h2 className="font-display text-lg font-bold">Open Geometry Exceptions Queue</h2>
             <p className="text-xs text-muted-foreground">
-              Review sub-metric deviations and click action buttons to auto-regularize or merge slivers.
+              Review sub-metric deviations and click action buttons to auto-regularize or merge
+              slivers.
             </p>
           </div>
           <span className="text-xs font-bold text-muted-foreground">
@@ -355,8 +386,8 @@ function Validation() {
                       item.severity === "High"
                         ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
                         : item.severity === "Medium"
-                        ? "bg-amber-500/15 text-amber-600 dark:text-amber-400"
-                        : "bg-blue-500/15 text-blue-600 dark:text-blue-400"
+                          ? "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+                          : "bg-blue-500/15 text-blue-600 dark:text-blue-400"
                     }`}
                   >
                     {item.severity}

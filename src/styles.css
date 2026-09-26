@@ -173,11 +173,20 @@
     font-family: var(--font-sans);
     min-width: 320px;
   }
-  button, a, input, select { letter-spacing: 0; }
+  button,
+  a,
+  input,
+  select {
+    letter-spacing: 0;
+  }
 }
 
-@utility bg-brand-gradient { background: var(--brand-gradient); }
-@utility shadow-brand { box-shadow: var(--shadow-brand); }
+@utility bg-brand-gradient {
+  background: var(--brand-gradient);
+}
+@utility shadow-brand {
+  box-shadow: var(--shadow-brand);
+}
 @utility glass-panel {
   background: color-mix(in oklab, var(--card) 88%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
@@ -185,8 +194,39 @@
   backdrop-filter: blur(18px);
 }
 
-@keyframes pulse-ring { 0%,100% { transform: scale(.75); opacity:.35 } 50% { transform:scale(1); opacity:.08 } }
-@keyframes rise { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
-.animate-rise { animation: rise .55s ease both; }
-.gnss-ring { animation: pulse-ring 2.2s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; } }
+@keyframes pulse-ring {
+  0%,
+  100% {
+    transform: scale(0.75);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 0.08;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise 0.55s ease both;
+}
+.gnss-ring {
+  animation: pulse-ring 2.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

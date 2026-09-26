@@ -15,7 +15,7 @@ import type { ParcelRecord } from "@/data/mock-data";
 
 export interface ParcelMapProps {
   parcels: ParcelRecord[];
-  selected?: ParcelRecord;
+  selected?: ParcelRecord | undefined;
   onSelectParcel: (parcel: ParcelRecord) => void;
   onStatusChange: (id: string, newStatus: "Approved" | "Pending" | "Disputed") => void;
   baseLayer: "osm" | "esri";
@@ -24,7 +24,7 @@ export interface ParcelMapProps {
   fillOpacity?: number;
 }
 
-function MapController({ selected }: { selected?: ParcelRecord }) {
+function MapController({ selected }: { selected?: ParcelRecord | undefined }) {
   const map = useMap();
 
   useEffect(() => {
@@ -127,10 +127,17 @@ export default function ParcelMap({
             }}
           >
             {showLabels && (
-              <Tooltip direction="center" permanent={false} opacity={0.92} className="roop-map-tooltip">
+              <Tooltip
+                direction="center"
+                permanent={false}
+                opacity={0.92}
+                className="roop-map-tooltip"
+              >
                 <div className="font-semibold text-xs py-0.5 px-1">
                   <span>{parcel.id}</span>
-                  <span className="block text-[10px] text-muted-foreground">{parcel.landUse} · {parcel.area} m²</span>
+                  <span className="block text-[10px] text-muted-foreground">
+                    {parcel.landUse} · {parcel.area} m²
+                  </span>
                 </div>
               </Tooltip>
             )}
@@ -153,20 +160,32 @@ export default function ParcelMap({
 
                 <div className="my-2.5 grid grid-cols-2 gap-2 text-xs">
                   <div className="rounded-lg bg-muted/70 p-2">
-                    <span className="text-[10px] text-muted-foreground block font-medium">Confidence</span>
+                    <span className="text-[10px] text-muted-foreground block font-medium">
+                      Confidence
+                    </span>
                     <span className="font-bold text-foreground text-sm">{parcel.confidence}%</span>
                   </div>
                   <div className="rounded-lg bg-muted/70 p-2">
-                    <span className="text-[10px] text-muted-foreground block font-medium">Area</span>
+                    <span className="text-[10px] text-muted-foreground block font-medium">
+                      Area
+                    </span>
                     <span className="font-bold text-foreground text-sm">{parcel.area} m²</span>
                   </div>
                   <div className="rounded-lg bg-muted/70 p-2">
-                    <span className="text-[10px] text-muted-foreground block font-medium">Land-Use</span>
-                    <span className="font-semibold text-foreground text-xs truncate block">{parcel.landUse}</span>
+                    <span className="text-[10px] text-muted-foreground block font-medium">
+                      Land-Use
+                    </span>
+                    <span className="font-semibold text-foreground text-xs truncate block">
+                      {parcel.landUse}
+                    </span>
                   </div>
                   <div className="rounded-lg bg-muted/70 p-2">
-                    <span className="text-[10px] text-muted-foreground block font-medium">Perimeter</span>
-                    <span className="font-semibold text-foreground text-xs">{parcel.perimeter} m</span>
+                    <span className="text-[10px] text-muted-foreground block font-medium">
+                      Perimeter
+                    </span>
+                    <span className="font-semibold text-foreground text-xs">
+                      {parcel.perimeter} m
+                    </span>
                   </div>
                 </div>
 
@@ -176,7 +195,8 @@ export default function ParcelMap({
 
                 {parcel.overlapPercent && (
                   <div className="mb-3 rounded-lg bg-rose-500/10 border border-rose-500/20 p-2 text-[11px] text-rose-600 dark:text-rose-400">
-                    <strong>Overlap Alert:</strong> {parcel.overlapPercent}% encroachment on adjoining corridor.
+                    <strong>Overlap Alert:</strong> {parcel.overlapPercent}% encroachment on
+                    adjoining corridor.
                   </div>
                 )}
 
@@ -228,8 +248,8 @@ export default function ParcelMap({
                 parcel.status === "Approved"
                   ? "#10b981"
                   : parcel.status === "Disputed"
-                  ? "#ef4444"
-                  : "#f59e0b",
+                    ? "#ef4444"
+                    : "#f59e0b",
               fillOpacity: 1,
               weight: 1.5,
             }}

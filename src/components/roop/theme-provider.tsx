@@ -22,7 +22,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     window.localStorage.setItem("roop-rekha-theme", dark ? "dark" : "light");
   }, [dark, ready]);
 
-  return <ThemeContext.Provider value={{ dark, toggle: () => setDark((value) => !value) }}>{children}</ThemeContext.Provider>;
+  return (
+    <ThemeContext.Provider value={{ dark, toggle: () => setDark((value) => !value) }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 }
 
 export const useTheme = () => useContext(ThemeContext);

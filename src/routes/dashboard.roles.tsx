@@ -21,7 +21,8 @@ const rolesList = [
     icon: Shield,
     scope: "National Command",
     badgeColor: "bg-violet-500/15 text-violet-600 dark:text-violet-400 border-violet-500/30",
-    description: "Ministry of Housing & Urban Affairs and Department of Land Resources national oversight.",
+    description:
+      "Ministry of Housing & Urban Affairs and Department of Land Resources national oversight.",
     permitted: [
       "Access all 157 participating ULBs",
       "Retrain & deploy Vision Transformer checkpoints",
@@ -94,7 +95,10 @@ export const Route = createFileRoute("/dashboard/roles")({
       { title: "Role Panels — ROOP-REKHA" },
       { name: "description", content: "Role-based access demonstration for parcel operations." },
       { property: "og:title", content: "Role Panels — ROOP-REKHA" },
-      { property: "og:description", content: "Role-based access demonstration for parcel operations." },
+      {
+        property: "og:description",
+        content: "Role-based access demonstration for parcel operations.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -126,9 +130,7 @@ function Roles() {
                 {theme.scope}
               </span>
             </h2>
-            <p className="mt-1 text-xs opacity-90 max-w-xl">
-              {theme.tagline}
-            </p>
+            <p className="mt-1 text-xs opacity-90 max-w-xl">{theme.tagline}</p>
           </div>
 
           <div className="rounded-xl bg-white/10 p-3 backdrop-blur-md text-xs font-medium border border-white/20">
@@ -157,7 +159,9 @@ function Roles() {
                 <div className="flex items-start justify-between">
                   <span
                     className={`grid size-12 place-items-center rounded-2xl ${
-                      isCurrent ? "bg-primary text-primary-foreground shadow-brand" : "bg-muted text-foreground"
+                      isCurrent
+                        ? "bg-primary text-primary-foreground shadow-brand"
+                        : "bg-muted text-foreground"
                     }`}
                   >
                     <Icon className="size-6" />
@@ -180,10 +184,10 @@ function Roles() {
                   )}
                 </div>
 
-                <h3 className="mt-4 font-display text-lg font-bold text-foreground">
-                  {item.name}
-                </h3>
-                <span className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold border mt-1 ${item.badgeColor}`}>
+                <h3 className="mt-4 font-display text-lg font-bold text-foreground">{item.name}</h3>
+                <span
+                  className={`inline-block rounded-full px-2 py-0.5 text-[10px] font-bold border mt-1 ${item.badgeColor}`}
+                >
                   {item.scope}
                 </span>
                 <p className="mt-2 text-xs text-muted-foreground leading-relaxed">

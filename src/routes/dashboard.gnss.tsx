@@ -58,7 +58,7 @@ const initialSurveyors: SurveyorQueueItem[] = [
   {
     id: "SV-104",
     name: "Aditi Sharma",
-    parcel: "MP-54-4523",
+    parcel: "MP-IND-54-4523",
     ulb: "Indore (Ward 54)",
     distance: "1.2 km away",
     satellites: 21,
@@ -112,19 +112,18 @@ function Gnss() {
         prev.map((s) => ({
           ...s,
           status: "Verified" as const,
-        }))
+        })),
       );
       setIsSyncing(false);
       toast.success("GNSS Rover Observations Synchronized", {
-        description: "All centimetre field observation vectors integrated into the Web-GIS database.",
+        description:
+          "All centimetre field observation vectors integrated into the Web-GIS database.",
       });
     }, 1200);
   }
 
   function updateSurveyorStatus(id: string, newStatus: SurveyorQueueItem["status"]) {
-    setSurveyors((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, status: newStatus } : s))
-    );
+    setSurveyors((prev) => prev.map((s) => (s.id === id ? { ...s, status: newStatus } : s)));
     toast.success(`Surveyor ${id} status updated`, {
       description: `Field unit transitioned to ${newStatus}.`,
     });
@@ -179,11 +178,15 @@ function Gnss() {
           {/* Telemetry specs */}
           <div className="mt-5 grid grid-cols-2 gap-2 w-full text-xs">
             <div className="rounded-xl bg-muted/60 p-2.5">
-              <span className="text-[10px] text-muted-foreground block font-medium">PDOP Indicator</span>
+              <span className="text-[10px] text-muted-foreground block font-medium">
+                PDOP Indicator
+              </span>
               <span className="font-bold text-foreground">1.1 (Excellent)</span>
             </div>
             <div className="rounded-xl bg-muted/60 p-2.5">
-              <span className="text-[10px] text-muted-foreground block font-medium">CORS Base Station</span>
+              <span className="text-[10px] text-muted-foreground block font-medium">
+                CORS Base Station
+              </span>
               <span className="font-bold text-primary truncate block">SOI-INDORE-01</span>
             </div>
           </div>
@@ -193,8 +196,12 @@ function Gnss() {
         <Panel className="border border-border/80 shadow-md p-5">
           <div className="flex items-center justify-between mb-2">
             <div>
-              <h2 className="font-display text-lg font-bold">Boundary Offset: AI vs GNSS Field Truth</h2>
-              <p className="text-xs text-muted-foreground">Discrepancy measured in centimetres (Tolerance threshold: &plusmn;5 cm)</p>
+              <h2 className="font-display text-lg font-bold">
+                Boundary Offset: AI vs GNSS Field Truth
+              </h2>
+              <p className="text-xs text-muted-foreground">
+                Discrepancy measured in centimetres (Tolerance threshold: &plusmn;5 cm)
+              </p>
             </div>
             <span className="rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 px-2.5 py-1 text-[11px] font-bold">
               92% within tolerance
@@ -204,14 +211,38 @@ function Gnss() {
           <div className="mt-4 h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={initialOffsetData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" opacity={0.6} />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="var(--border)"
+                  opacity={0.6}
+                />
                 <XAxis dataKey="parcel" tick={{ fontSize: 11, fill: "currentColor" }} />
                 <YAxis tick={{ fontSize: 11, fill: "currentColor" }} unit="cm" />
                 <Tooltip content={<CustomChartTooltip valueSuffix=" cm" />} />
                 <Legend wrapperStyle={{ fontSize: 11, paddingTop: 10 }} />
-                <ReferenceLine y={5} stroke="#ef4444" strokeDasharray="3 3" label={{ value: "5cm Standard", fill: "#ef4444", fontSize: 10 }} />
-                <Bar name="AI Predicted Offset" dataKey="ai" fill="#7c3aed" radius={[4, 4, 0, 0]} isAnimationActive={true} animationDuration={1000} />
-                <Bar name="GNSS Verified Offset" dataKey="gnss" fill="#14b8a6" radius={[4, 4, 0, 0]} isAnimationActive={true} animationDuration={1200} />
+                <ReferenceLine
+                  y={5}
+                  stroke="#ef4444"
+                  strokeDasharray="3 3"
+                  label={{ value: "5cm Standard", fill: "#ef4444", fontSize: 10 }}
+                />
+                <Bar
+                  name="AI Predicted Offset"
+                  dataKey="ai"
+                  fill="#7c3aed"
+                  radius={[4, 4, 0, 0]}
+                  isAnimationActive={true}
+                  animationDuration={1000}
+                />
+                <Bar
+                  name="GNSS Verified Offset"
+                  dataKey="gnss"
+                  fill="#14b8a6"
+                  radius={[4, 4, 0, 0]}
+                  isAnimationActive={true}
+                  animationDuration={1200}
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -252,14 +283,18 @@ function Gnss() {
                   <Navigation className="size-4 text-primary shrink-0" />
                   <div>
                     <span>{s.name}</span>
-                    <span className="block text-[10px] text-muted-foreground font-mono">{s.id}</span>
+                    <span className="block text-[10px] text-muted-foreground font-mono">
+                      {s.id}
+                    </span>
                   </div>
                 </td>
                 <td className="py-3.5 font-semibold text-primary">{s.parcel}</td>
                 <td className="py-3.5 font-medium">{s.ulb}</td>
                 <td className="py-3.5 text-muted-foreground">{s.distance}</td>
                 <td className="py-3.5 font-mono">{s.satellites} sats</td>
-                <td className="py-3.5 font-bold text-emerald-600 dark:text-emerald-400">{s.accuracy}</td>
+                <td className="py-3.5 font-bold text-emerald-600 dark:text-emerald-400">
+                  {s.accuracy}
+                </td>
                 <td className="py-3.5">
                   <StatusBadge status={s.status} />
                 </td>
@@ -285,7 +320,11 @@ function Gnss() {
                       size="sm"
                       variant="ghost"
                       className="h-7 w-7 p-0"
-                      onClick={() => toast.info(`Contacting ${s.name}`, { description: `Connecting VoIP to rover handset ${s.id}...` })}
+                      onClick={() =>
+                        toast.info(`Contacting ${s.name}`, {
+                          description: `Connecting VoIP to rover handset ${s.id}...`,
+                        })
+                      }
                       title="Contact Rover"
                     >
                       <PhoneCall className="size-3.5" />

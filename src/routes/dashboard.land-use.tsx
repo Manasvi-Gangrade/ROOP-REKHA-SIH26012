@@ -33,7 +33,13 @@ export const Route = createFileRoute("/dashboard/land-use")({
 });
 
 const icons = [Home, Building2, Warehouse, Sprout, Factory];
-const zoneCodes = ["Zone R-1 (High Density)", "Zone C-2 (Commercial Hub)", "Zone M-1 (Mixed Transit)", "Zone AG-3 (Peri-urban)", "Zone PUB-1 (Govt / Open)"];
+const zoneCodes = [
+  "Zone R-1 (High Density)",
+  "Zone C-2 (Commercial Hub)",
+  "Zone M-1 (Mixed Transit)",
+  "Zone AG-3 (Peri-urban)",
+  "Zone PUB-1 (Govt / Open)",
+];
 
 function LandUse() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -63,7 +69,9 @@ function LandUse() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="font-display text-lg font-bold">Urban Land-Use Composition</h2>
-              <p className="text-xs text-muted-foreground">Functional mix of 9,402 mapped parcels</p>
+              <p className="text-xs text-muted-foreground">
+                Functional mix of 9,402 mapped parcels
+              </p>
             </div>
             <span className="rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-xs font-bold">
               Indore Master Plan
@@ -105,9 +113,7 @@ function LandUse() {
             {initialLandUse.map((x) => (
               <button
                 key={x.name}
-                onClick={() =>
-                  setSelectedCategory((prev) => (prev === x.name ? null : x.name))
-                }
+                onClick={() => setSelectedCategory((prev) => (prev === x.name ? null : x.name))}
                 className={`flex items-center justify-between rounded-lg p-2 text-left text-xs transition-colors ${
                   selectedCategory === x.name
                     ? "bg-primary text-primary-foreground font-bold"
@@ -167,7 +173,9 @@ function LandUse() {
                 <div className="mt-4 pt-3 border-t border-border text-xs space-y-1">
                   <div className="flex justify-between text-muted-foreground">
                     <span>Mapped Area:</span>
-                    <span className="font-semibold text-foreground font-mono">{item.areaHectares} ha</span>
+                    <span className="font-semibold text-foreground font-mono">
+                      {item.areaHectares} ha
+                    </span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
                     <span>Total Parcels:</span>

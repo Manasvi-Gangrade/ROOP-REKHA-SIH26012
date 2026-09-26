@@ -4,7 +4,7 @@ interface AnimatedCounterProps {
   value: number | string;
   duration?: number;
   prefix?: string;
-  suffix?: string;
+  suffix?: string | undefined;
   className?: string;
 }
 
@@ -15,9 +15,10 @@ export function AnimatedCounter({
   suffix = "",
   className = "",
 }: AnimatedCounterProps) {
-  const numericTarget = typeof value === "number" ? value : parseFloat(String(value).replace(/[^0-9.-]+/g, "")) || 0;
+  const numericTarget =
+    typeof value === "number" ? value : parseFloat(String(value).replace(/[^0-9.-]+/g, "")) || 0;
   const isDecimal = String(value).includes(".");
-  const decimalPlaces = isDecimal ? (String(value).split(".")[1]?.length || 1) : 0;
+  const decimalPlaces = isDecimal ? String(value).split(".")[1]?.length || 1 : 0;
   const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {

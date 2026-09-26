@@ -40,7 +40,9 @@ export const Route = createFileRoute("/dashboard/map")({
 function MapPage() {
   const [items, setItems] = useState<ParcelRecord[]>(initialParcels);
   const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"All" | "Approved" | "Pending" | "Disputed">("All");
+  const [statusFilter, setStatusFilter] = useState<"All" | "Approved" | "Pending" | "Disputed">(
+    "All",
+  );
   const [selectedParcel, setSelectedParcel] = useState<ParcelRecord | undefined>(initialParcels[0]);
   const [baseLayer, setBaseLayer] = useState<"osm" | "esri">("osm");
   const [showCentroids, setShowCentroids] = useState(true);
@@ -65,7 +67,7 @@ function MapPage() {
       (p) =>
         p.id.toLowerCase().includes(query) ||
         p.owner.toLowerCase().includes(query) ||
-        p.address.toLowerCase().includes(query)
+        p.address.toLowerCase().includes(query),
     );
   }, [items, search]);
 
@@ -77,9 +79,7 @@ function MapPage() {
   }, [items]);
 
   function handleStatusChange(id: string, newStatus: "Approved" | "Pending" | "Disputed") {
-    setItems((rows) =>
-      rows.map((x) => (x.id === id ? { ...x, status: newStatus } : x))
-    );
+    setItems((rows) => rows.map((x) => (x.id === id ? { ...x, status: newStatus } : x)));
     if (selectedParcel?.id === id) {
       setSelectedParcel((prev) => (prev ? { ...prev, status: newStatus } : undefined));
     }
@@ -194,8 +194,8 @@ function MapPage() {
                         item.status === "Approved"
                           ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
                           : item.status === "Disputed"
-                          ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
-                          : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+                            ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
+                            : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
                       }`}
                     >
                       {item.status}
@@ -359,9 +359,7 @@ function MapPage() {
                   <span className="size-3 rounded-sm bg-rose-500 shadow-sm" />
                   <span className="font-medium">Disputed / Conflict</span>
                 </span>
-                <span className="font-bold text-rose-600 dark:text-rose-400">
-                  {stats.disputed}
-                </span>
+                <span className="font-bold text-rose-600 dark:text-rose-400">{stats.disputed}</span>
               </button>
             </div>
 
@@ -427,8 +425,8 @@ function MapPage() {
                     selectedParcel.status === "Approved"
                       ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
                       : selectedParcel.status === "Disputed"
-                      ? "bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30"
-                      : "bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30"
+                        ? "bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30"
+                        : "bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30"
                   }`}
                 >
                   {selectedParcel.status}
@@ -468,9 +466,7 @@ function MapPage() {
                     <span className="text-[11px] font-medium text-muted-foreground block">
                       Land-Use Zoning
                     </span>
-                    <span className="font-bold text-primary text-sm">
-                      {selectedParcel.landUse}
-                    </span>
+                    <span className="font-bold text-primary text-sm">{selectedParcel.landUse}</span>
                   </div>
                 </div>
 
@@ -514,7 +510,8 @@ function MapPage() {
                       Encroachment Conflict Detected
                     </p>
                     <p className="mt-1 text-[11px] leading-relaxed">
-                      AI topology detected a {selectedParcel.overlapPercent}% overlap with adjacent public corridor right-of-way.
+                      AI topology detected a {selectedParcel.overlapPercent}% overlap with adjacent
+                      public corridor right-of-way.
                     </p>
                   </div>
                 )}
@@ -577,17 +574,19 @@ function MapPage() {
                 >
                   <div>
                     <span className="font-bold">{p.id}</span>
-                    <span className="block text-[10px] opacity-80">{p.area} m² · {p.landUse}</span>
+                    <span className="block text-[10px] opacity-80">
+                      {p.area} m² · {p.landUse}
+                    </span>
                   </div>
                   <span
                     className={`rounded-full px-2 py-0.5 text-[9px] font-bold ${
                       selectedParcel?.id === p.id
                         ? "bg-white/20 text-white"
                         : p.status === "Approved"
-                        ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
-                        : p.status === "Disputed"
-                        ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
-                        : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+                          ? "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+                          : p.status === "Disputed"
+                            ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
+                            : "bg-amber-500/15 text-amber-600 dark:text-amber-400"
                     }`}
                   >
                     {p.status}
